@@ -7,21 +7,24 @@ const forecast = (latitude, longtitude, callback) => {
     "," +
     longtitude +
     "&units=m";
-  
 
-  request({ url: url, json: true }, (error, {body}) => {
+  request({ url: url, json: true }, (error, { body }) => {
     if (error) {
       callback("Unable to connect to weather service!");
     } else if (body.error) {
       callback("Unable to find location!");
     } else {
-      callback(undefined, 
-          body.current.weather_descriptions[0] +
+      callback(
+        undefined,
+        body.current.weather_descriptions[0] +
           ". It is currently " +
           body.current.temperature +
           " degrees out. It feels like " +
           body.current.feelslike +
-          " degrees out.",
+          " degrees out."
+        +"The humidity is " +
+          body.current.humidity +
+          "%."
       );
     }
   });
